@@ -90,6 +90,7 @@ if (!class_exists('WPGraphQLGutenberg')) {
 			new \WPGraphQLGutenberg\Admin\Editor();
 			new \WPGraphQLGutenberg\Admin\Settings();
 			new \WPGraphQLGutenberg\Rest\Rest();
+			new \WPGraphQLGutenberg\Blocks\Plugin();
 
 			add_action('init_graphql_request', function () {
 				new \WPGraphQLGutenberg\Schema\Schema();
