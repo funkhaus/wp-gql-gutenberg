@@ -1,9 +1,7 @@
 <?php
-namespace WPGraphQLGutenberg\Blocks;
+namespace WPGraphQLGutenberg\Schema\Types\Connection;
 
-use WPGraphQL\Data\Connection\PostObjectConnectionResolver;
-
-class Plugin {
+class CoreImageBlockMediaItemConnection {
 	function __construct() {
 		add_action( 'graphql_register_types', function() {
 			register_graphql_connection([
