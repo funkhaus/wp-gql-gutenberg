@@ -119,7 +119,6 @@ return array(
     'WPGraphQLGutenberg\\Schema\\Schema' => $baseDir . '/src/Schema/Schema.php',
     'WPGraphQLGutenberg\\Schema\\Types\\BlockTypes' => $baseDir . '/src/Schema/Types/BlockTypes.php',
     'WPGraphQLGutenberg\\Schema\\Types\\Connection\\BlockEditorContentNodeConnection' => $baseDir . '/src/Schema/Types/Connection/BlockEditorContentNodeConnection.php',
-    'WPGraphQLGutenberg\\Schema\\Types\\Connection\\CoreImageBlockMediaItemConnection' => $baseDir . '/src/Schema/Types/Connection/CoreImageBlockMediaItemConnection.php',
     'WPGraphQLGutenberg\\Schema\\Types\\InterfaceType\\Block' => $baseDir . '/src/Schema/Types/InterfaceType/Block.php',
     'WPGraphQLGutenberg\\Schema\\Types\\InterfaceType\\BlockEditorContentNode' => $baseDir . '/src/Schema/Types/InterfaceType/BlockEditorContentNode.php',
     'WPGraphQLGutenberg\\Schema\\Types\\Object\\ReusableBlock' => $baseDir . '/src/Schema/Types/Object/ReusableBlock.php',
