@@ -104,6 +104,13 @@ if (!class_exists('WPGraphQLGutenberg')) {
 				return $request_data;
 			});
 
+			// Init Gutenberg ACF if WPGraphQLGutenbergACF plugin is not installed and GraphQLACF installed.
+			add_action( 'acf/init', function() {
+				if ( ! class_exists( 'WPGraphQLGutenbergACF' ) && class_exists( 'WPGraphQL\ACF\Config' ) ) {
+					\WPGraphQLGutenberg\Config::instance();
+				}
+			} );
+
 			register_deactivation_hook(__FILE__, function () {
 				\WPGraphQLGutenberg\Server\Server::cleanup();
 			});

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Opis\\JsonSchema\\Exception\\AbstractSchemaException' => $vendorDir . '/opis/json-schema/src/Exception/AbstractSchemaException.php',
     'Opis\\JsonSchema\\Exception\\DuplicateSchemaException' => $vendorDir . '/opis/json-schema/src/Exception/DuplicateSchemaException.php',
     'Opis\\JsonSchema\\Exception\\FilterNotFoundException' => $vendorDir . '/opis/json-schema/src/Exception/FilterNotFoundException.php',
@@ -113,13 +114,13 @@ return array(
     'WPGraphQLGutenberg\\Blocks\\Registry' => $baseDir . '/src/Blocks/Registry.php',
     'WPGraphQLGutenberg\\Blocks\\RegistryNotSourcedException' => $baseDir . '/src/Blocks/Registry.php',
     'WPGraphQLGutenberg\\Blocks\\Utils' => $baseDir . '/src/Blocks/Utils.php',
+    'WPGraphQLGutenberg\\Config' => $baseDir . '/src/Acf/Config.php',
     'WPGraphQLGutenberg\\PostTypes\\BlockEditorPreview' => $baseDir . '/src/PostTypes/BlockEditorPreview.php',
     'WPGraphQLGutenberg\\PostTypes\\ReusableBlock' => $baseDir . '/src/PostTypes/ReusableBlock.php',
     'WPGraphQLGutenberg\\Rest\\Rest' => $baseDir . '/src/Rest/Rest.php',
     'WPGraphQLGutenberg\\Schema\\Schema' => $baseDir . '/src/Schema/Schema.php',
     'WPGraphQLGutenberg\\Schema\\Types\\BlockTypes' => $baseDir . '/src/Schema/Types/BlockTypes.php',
     'WPGraphQLGutenberg\\Schema\\Types\\Connection\\BlockEditorContentNodeConnection' => $baseDir . '/src/Schema/Types/Connection/BlockEditorContentNodeConnection.php',
-    'WPGraphQLGutenberg\\Schema\\Types\\Connection\\CoreImageBlockMediaItemConnection' => $baseDir . '/src/Schema/Types/Connection/CoreImageBlockMediaItemConnection.php',
     'WPGraphQLGutenberg\\Schema\\Types\\InterfaceType\\Block' => $baseDir . '/src/Schema/Types/InterfaceType/Block.php',
     'WPGraphQLGutenberg\\Schema\\Types\\InterfaceType\\BlockEditorContentNode' => $baseDir . '/src/Schema/Types/InterfaceType/BlockEditorContentNode.php',
     'WPGraphQLGutenberg\\Schema\\Types\\Object\\ReusableBlock' => $baseDir . '/src/Schema/Types/Object/ReusableBlock.php',
