@@ -46,7 +46,7 @@ class Registry {
 			);
 		}
 
-		return $registry;
+		return apply_filters( 'ggb_get_registry', $registry );
 	}
 
 	public static function delete_registry() {
