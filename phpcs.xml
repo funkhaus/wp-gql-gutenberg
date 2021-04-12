@@ -49,9 +49,9 @@
 	</rule>
 
 	<!-- Tests for PHP version compatibility -->
-	<rule ref="PHPCompatibilityWP">
+	<!-- <rule ref="PHPCompatibilityWP">
 		<config name="testVersion" value="7.0-"/>
-	</rule>
+	</rule> -->
 
 	<!-- Enforce short array syntax -->
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
