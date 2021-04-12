@@ -114,6 +114,7 @@ return array(
     'WPGraphQLGutenberg\\Blocks\\Registry' => $baseDir . '/src/Blocks/Registry.php',
     'WPGraphQLGutenberg\\Blocks\\RegistryNotSourcedException' => $baseDir . '/src/Blocks/Registry.php',
     'WPGraphQLGutenberg\\Blocks\\Utils' => $baseDir . '/src/Blocks/Utils.php',
+    'WPGraphQLGutenberg\\Config' => $baseDir . '/src/Acf/Config.php',
     'WPGraphQLGutenberg\\PostTypes\\BlockEditorPreview' => $baseDir . '/src/PostTypes/BlockEditorPreview.php',
     'WPGraphQLGutenberg\\PostTypes\\ReusableBlock' => $baseDir . '/src/PostTypes/ReusableBlock.php',
     'WPGraphQLGutenberg\\Rest\\Rest' => $baseDir . '/src/Rest/Rest.php',
