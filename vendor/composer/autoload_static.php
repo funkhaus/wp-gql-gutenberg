@@ -161,6 +161,7 @@ class ComposerStaticInit1ae93f46350550e5030837be01a3fdf8
         'WPGraphQLGutenberg\\Schema\\Types\\BlockTypes' => __DIR__ . '/../..' . '/src/Schema/Types/BlockTypes.php',
         'WPGraphQLGutenberg\\Schema\\Types\\Connection\\BlockEditorContentNodeConnection' => __DIR__ . '/../..' . '/src/Schema/Types/Connection/BlockEditorContentNodeConnection.php',
         'WPGraphQLGutenberg\\Schema\\Types\\Connection\\CoreImageBlockMediaItemConnection' => __DIR__ . '/../..' . '/src/Schema/Types/Connection/CoreImageBlockMediaItemConnection.php',
+        'WPGraphQLGutenberg\\Schema\\Types\\Connection\\CoreGalleryBlockMediaItemsConnection' => __DIR__ . '/../..' . '/src/Schema/Types/Connection/CoreGalleryBlockMediaItemsConnection.php',
         'WPGraphQLGutenberg\\Schema\\Types\\InterfaceType\\Block' => __DIR__ . '/../..' . '/src/Schema/Types/InterfaceType/Block.php',
         'WPGraphQLGutenberg\\Schema\\Types\\InterfaceType\\BlockEditorContentNode' => __DIR__ . '/../..' . '/src/Schema/Types/InterfaceType/BlockEditorContentNode.php',
         'WPGraphQLGutenberg\\Schema\\Types\\Object\\ReusableBlock' => __DIR__ . '/../..' . '/src/Schema/Types/Object/ReusableBlock.php',
