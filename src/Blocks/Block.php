@@ -176,7 +176,7 @@ class Block implements ArrayAccess {
 
 		$result = self::parse_attributes($data, $this->blockType);
 
-		$this->attributes = apply_filters( 'ggb_attributes_' . $this->name, $result['attributes'] );
+		$this->attributes = apply_filters( 'ggb_attributes' , $result['attributes'], $this->name );
 		$this->attributesType = $result['type'];
 	}
 
