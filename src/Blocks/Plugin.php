@@ -28,24 +28,25 @@ class Plugin {
     ];
 
     public static function alter_attributes( $attributes, $blockName ) {
-        
+        // calculate textColorCode
 		$default_colors = apply_filters( 'ggb_default_colors', self::$default_colors );
 		if ( isset( $attributes['textColor'] ) && isset( $default_colors[ $attributes['textColor'] ] ) ) {
 			$attributes['textColorCode'] = $default_colors[ $attributes['textColor'] ];
 		}
 
+        // calculate backgroundColorCode
 		if ( isset( $attributes['backgroundColor'] ) && isset( $default_colors[ $attributes['backgroundColor'] ] ) ) {
 			$attributes['backgroundColorCode'] = $default_colors[ $attributes['backgroundColor'] ];
 		}
 
+        // calculate fontSizeValue
         $default_font_sizes = apply_filters( 'ggb_default_font_sizes', self::$default_font_sizes );
         if ( isset( $attributes['fontSize'] ) && isset( $default_font_sizes[ $attributes['fontSize'] ] ) ) {
             $attributes['fontSizeValue'] = self::$default_font_sizes[ $attributes['fontSize'] ];
         }
 
+        // read textColor, backgroundColor, and fontSize from style
 		if ( isset( $attributes['style'] ) ) {
-
-			// read textColor, backgroundColor from style
 			if ( isset( $attributes['style']['color'] ) ) {
 				if ( isset( $attributes['style']['color']['text'] ) ) {
 					$attributes['textColorCode'] = $attributes['style']['color']['text'];
@@ -86,8 +87,18 @@ class Plugin {
         return $registry;
     }
 
+    public static function alter_connection_ids( $ids, $resolver ) {
+        $source = $resolver->getSource();
+        if ( 'core/gallery' == $source['name'] ) {
+            // reorder the gallery
+            return $source['attributes']['ids'];
+        }
+        return $ids;
+    }
+
     function __construct() {
 		add_filter( 'ggb_attributes', array( __CLASS__, 'alter_attributes' ), 10, 2 );
 		add_filter( 'ggb_get_registry', array( __CLASS__, 'alter_registry' ) );
+        add_filter( 'graphql_connection_ids', array( __CLASS__, 'alter_connection_ids' ), 10, 2 );
 	}
 }
