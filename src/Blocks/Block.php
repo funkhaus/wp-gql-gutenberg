@@ -125,6 +125,27 @@ class Block implements ArrayAccess {
 		$types = [$block_type['attributes']];
 		$attributes = $data['attrs'];
 
+		if ( isset( $attributes['style'] ) ) {
+
+			// read textColor, backgroundColor from style
+			if ( isset( $attributes['style']['color'] ) ) {
+				if ( isset( $attributes['style']['color']['text'] ) ) {
+					$attributes['textColor'] = $attributes['style']['color']['text'];
+				}
+				if ( isset( $attributes['style']['color']['background'] ) ) {
+					$attributes['backgroundColor'] = $attributes['style']['color']['background'];
+				}
+			}
+
+			// read fontSize from style
+			if ( isset( $attributes['style']['typography'] ) && isset( $attributes['style']['typography']['fontSize'] ) ) {
+				$attributes['fontSize'] = $attributes['style']['typography']['fontSize'];
+			}
+
+			// cast style from array to object.
+			$attributes['style'] = (object)$attributes['style'];
+		}
+
 		foreach ($block_type['deprecated'] ?? [] as $deprecated) {
 			if (!empty($deprecated['attributes'])) {
 				$types[] = $deprecated['attributes'];
