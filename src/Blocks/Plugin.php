@@ -89,7 +89,7 @@ class Plugin {
 
     public static function alter_connection_ids( $ids, $resolver ) {
         $source = $resolver->getSource();
-        if ( 'core/gallery' == $source['name'] ) {
+        if ( ( $source instanceof Block ) && 'core/gallery' === $source['name'] ) {
             // reorder the gallery
             return $source['attributes']['ids'];
         }
