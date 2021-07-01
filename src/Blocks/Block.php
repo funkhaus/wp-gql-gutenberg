@@ -122,8 +122,14 @@ class Block implements ArrayAccess {
 	}
 
 	protected static function parse_attributes($data, $block_type) {
-		$types = [$block_type['attributes']];
 		$attributes = $data['attrs'];
+		if ($block_type === null) {
+			return [
+				'attributes' => $attributes
+			];
+		}
+
+		$types = [$block_type['attributes']];
 
 		foreach ($block_type['deprecated'] ?? [] as $deprecated) {
 			if (!empty($deprecated['attributes'])) {
@@ -178,6 +184,20 @@ class Block implements ArrayAccess {
 
 		$this->attributes = apply_filters( 'ggb_attributes' , $result['attributes'], $this->name );
 		$this->attributesType = $result['type'];
+
+		$this->dynamicContent = $this->render_dynamic_content();
+
+	}
+
+	private function render_dynamic_content() {
+		$registry = \WP_Block_Type_Registry::get_instance();
+		$server_block_type = $registry->get_registered($this->name);
+
+		if (empty($server_block_type)) {
+			return null;
+		}
+
+		return $server_block_type->render($this->attributes);
 	}
 
 	public function offsetExists($offset) {

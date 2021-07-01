@@ -17,6 +17,10 @@ class Block {
 
 	function __construct() {
 		add_action('graphql_register_types', function ($type_registry) {
+			register_graphql_object_type('UnknownBlock', [
+				'fields' => [],
+				'interfaces' => ['Block']
+			]);
 			register_graphql_interface_type('Block', [
 				'description' => __('Gutenberg block interface', 'wp-graphql-gutenberg'),
 				'fields' => [
@@ -67,17 +71,7 @@ class Block {
 					],
 					'dynamicContent' => [
 						'type' => 'String',
-						'description' => __('Server side rendered content.', 'wp-graphql-gutenberg'),
-						'resolve' => function ($block, $args, $context, $info) {
-							$registry = \WP_Block_Type_Registry::get_instance();
-							$server_block_type = $registry->get_registered($block->name);
-
-							if (empty($server_block_type)) {
-								return null;
-							}
-
-							return $server_block_type->render($block->attributes);
-						}
+						'description' => __('Server side rendered content.', 'wp-graphql-gutenberg')
 					],
 					'order' => [
 						'type' => ['non_null' => 'Int']
@@ -91,7 +85,11 @@ class Block {
 					]
 				],
 				'resolveType' => function ($block) use ($type_registry) {
-					return $type_registry->get_type(BlockTypes::format_block_name($block->name));
+					$type = $type_registry->get_type(BlockTypes::format_block_name($block->name));
+					if ($type === null) {
+						return $type_registry->get_type('UnknownBlock');
+					}
+					return $type;
 				}
 			]);
 		});
