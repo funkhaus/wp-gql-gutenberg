@@ -45,7 +45,6 @@ class ComposerStaticInit1ae93f46350550e5030837be01a3fdf8
     );
 
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Opis\\JsonSchema\\Exception\\AbstractSchemaException' => __DIR__ . '/..' . '/opis/json-schema/src/Exception/AbstractSchemaException.php',
         'Opis\\JsonSchema\\Exception\\DuplicateSchemaException' => __DIR__ . '/..' . '/opis/json-schema/src/Exception/DuplicateSchemaException.php',
         'Opis\\JsonSchema\\Exception\\FilterNotFoundException' => __DIR__ . '/..' . '/opis/json-schema/src/Exception/FilterNotFoundException.php',
