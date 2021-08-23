@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Opis\\JsonSchema\\Exception\\AbstractSchemaException' => $vendorDir . '/opis/json-schema/src/Exception/AbstractSchemaException.php',
     'Opis\\JsonSchema\\Exception\\DuplicateSchemaException' => $vendorDir . '/opis/json-schema/src/Exception/DuplicateSchemaException.php',
     'Opis\\JsonSchema\\Exception\\FilterNotFoundException' => $vendorDir . '/opis/json-schema/src/Exception/FilterNotFoundException.php',
