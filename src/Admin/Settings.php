@@ -9,16 +9,16 @@ class Settings {
 	function __construct() {
 		add_action('admin_menu', function () {
 			add_submenu_page(
-				'graphql',
-				__('GraphQL Gutenberg', 'wp-graphql-gutenberg'),
-				'GraphQL Gutenberg',
+				'graphiql-ide',
+				__('Gutenberg', 'wp-graphql-gutenberg'),
+				'Gutenberg',
 				'manage_options',
 				'wp-graphql-gutenberg-admin',
 				function () {
 					echo '<div class="wrap"><div id="wp-graphql-gutenberg-admin"></div></div>';
 				},
 			);
-		}, 20);
+		}, 100);
 
 		add_action('admin_enqueue_scripts', function ($hook) {
 			if (!preg_match('/.+wp-graphql-gutenberg-admin$/', $hook)) {
