@@ -88,7 +88,11 @@ class Block implements ArrayAccess {
 					$source_node = $value['selector'] ? $node->findOne($value['selector']) : $node;
 
 					if ($source_node) {
-						$result[$key] = $source_node->getAttribute($value['attribute']);
+						if ( $value['type'] == 'boolean' ) {
+							$result[$key] = $source_node->hasAttribute($value['attribute']);
+						} else {
+							$result[$key] = $source_node->getAttribute($value['attribute']);
+						}
 					}
 					break;
 				case 'text':
