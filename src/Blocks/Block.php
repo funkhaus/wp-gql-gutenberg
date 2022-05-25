@@ -88,7 +88,11 @@ class Block implements ArrayAccess {
 					$source_node = $value['selector'] ? $node->findOne($value['selector']) : $node;
 
 					if ($source_node) {
-						$result[$key] = $source_node->getAttribute($value['attribute']);
+						if ( $value['type'] == 'boolean' ) {
+							$result[$key] = $source_node->hasAttribute($value['attribute']);
+						} else {
+							$result[$key] = $source_node->getAttribute($value['attribute']);
+						}
 					}
 					break;
 				case 'text':
@@ -113,7 +117,7 @@ class Block implements ArrayAccess {
 				// pass
 			}
 
-			if (empty($result[$key]) && isset($value['default'])) {
+			if (false !== $result[$key] && empty($result[$key]) && isset($value['default'])) {
 				$result[$key] = $value['default'];
 			}
 		}
@@ -123,6 +127,15 @@ class Block implements ArrayAccess {
 
 	protected static function parse_attributes($data, $block_type) {
 		$attributes = $data['attrs'];
+
+		/**
+		 * Filters the block attributes.
+		 *
+		 * @param array $attributes Block attributes.
+		 * @param array $block_type Block type definition.
+		 */
+		$attributes = apply_filters('graphql_gutenberg_block_attributes', $attributes, $block_type);
+
 		if ($block_type === null) {
 			return [
 				'attributes' => $attributes
@@ -148,12 +161,18 @@ class Block implements ArrayAccess {
 
 			$validator = new Validator();
 
-			$result = $validator->schemaValidation((object) $attributes, $schema);
+			// Convert $attributes to an object, handle both nested and empty objects.
+			$attrs = empty($attributes)
+				? (object)$attributes
+				: json_decode(json_encode($attributes), false);
+			$result = $validator->schemaValidation($attrs, $schema);
 
 			if ($result->isValid()) {
+				// Avoid empty HTML, which can trigger an error on PHP 8.
+				$html = empty($data['innerHTML']) ? '<!-- -->' : $data['innerHTML'];
 				return [
 					'attributes' => array_merge(
-						self::source_attributes(HtmlDomParser::str_get_html($data['innerHTML']), $type),
+						self::source_attributes(HtmlDomParser::str_get_html($html), $type),
 						$attributes
 					),
 					'type' => $type
@@ -185,19 +204,19 @@ class Block implements ArrayAccess {
 		$this->attributes = apply_filters( 'ggb_attributes' , $result['attributes'], $this->name );
 		$this->attributesType = $result['type'];
 
-		$this->dynamicContent = $this->render_dynamic_content();
+		$this->dynamicContent = $this->render_dynamic_content($data);
 
 	}
 
-	private function render_dynamic_content() {
+	private function render_dynamic_content($data) {
 		$registry = \WP_Block_Type_Registry::get_instance();
 		$server_block_type = $registry->get_registered($this->name);
 
-		if (empty($server_block_type)) {
+		if (empty($server_block_type) || !$server_block_type->is_dynamic()) {
 			return null;
 		}
 
-		return $server_block_type->render($this->attributes);
+		return render_block($data);
 	}
 
 	public function offsetExists($offset) {
