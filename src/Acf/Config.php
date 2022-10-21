@@ -120,17 +120,17 @@ final class Config extends \WPGraphQL\ACF\Config {
 	}
 
 	public function __construct() {
+		// Under ACF version 6.0
 		add_filter(
 			'graphql_acf_get_root_id',
 			function ( $id, $root ) {
 				if ( $root instanceof Block ) {
+					$id = md5( json_encode( $root['attributes'] ) );
 					acf_setup_meta(
 						$root['attributes']['data'],
-						$root['attributes']['id'],
+						$id,
 						false
 					);
-
-					return $root['attributes']['id'];
 				}
 
 				return $id;
