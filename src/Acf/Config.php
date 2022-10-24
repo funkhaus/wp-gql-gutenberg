@@ -120,17 +120,17 @@ final class Config extends \WPGraphQL\ACF\Config {
 	}
 
 	public function __construct() {
+		// Under ACF version 6.0
 		add_filter(
 			'graphql_acf_get_root_id',
 			function ( $id, $root ) {
 				if ( $root instanceof Block ) {
+					$id = md5( json_encode( $root['attributes'] ) );
 					acf_setup_meta(
 						$root['attributes']['data'],
-						$root['attributes']['id'],
+						$id,
 						false
 					);
-
-					return $root['attributes']['id'];
 				}
 
 				return $id;
@@ -143,7 +143,7 @@ final class Config extends \WPGraphQL\ACF\Config {
 			'graphql_gutenberg_block_type_fields',
 			function ( $fields, $block_type, $type_registry ) {
 				$this->type_registry = $type_registry;
-				if ( substr( $block_type['name'], 0, 4 ) === 'acf/' ) {
+				if ( isset( $block_type['acf'] ) || substr( $block_type['name'], 0, 4 ) === 'acf/' ) {
 					$this->add_acf_fields_to_block( $block_type );
 				}
 
