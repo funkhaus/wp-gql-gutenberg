@@ -5,10 +5,11 @@ class CoreImageBlockMediaItemConnection {
 	function __construct() {
 		add_action( 'graphql_register_types', function() {
 			register_graphql_connection([
-				'fromType' => 'CoreImageBlock',
-				'toType' => 'MediaItem',
+				'fromType'      => 'CoreImageBlock',
+				'toType'        => 'MediaItem',
+				'oneToOne'      => true,
 				'fromFieldName' => 'mediaItem',
-				'resolve' => function( $source, $args, $context, $info ) {
+				'resolve'       => function( $source, $args, $context, $info ) {
 					// Instantiate a new PostObjectConnectionResolver class
 					$resolver = new \WPGraphQL\Data\Connection\PostObjectConnectionResolver( $source, $args, $context, $info, 'attachment' );
 
@@ -16,7 +17,7 @@ class CoreImageBlockMediaItemConnection {
 					$resolver->set_query_arg( 'p', $source['attributes']['id'] );
 
 					// Return the connection
-					return $resolver->get_connection();
+					return $resolver->one_to_one()->get_connection();
 				}
 			]);
 		} );
