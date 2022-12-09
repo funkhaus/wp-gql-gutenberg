@@ -11,7 +11,6 @@ class Schema {
 		new \WPGraphQLGutenberg\Schema\Types\Connection\BlockEditorContentNodeConnection();
 		new \WPGraphQLGutenberg\Schema\Types\Connection\CoreImageBlockMediaItemConnection();
 		new \WPGraphQLGutenberg\Schema\Types\Connection\CoreCoverBlockMediaItemConnection();
-		new \WPGraphQLGutenberg\Schema\Types\Connection\CoreGalleryBlockMediaItemsConnection();
 		new \WPGraphQLGutenberg\Schema\Types\BlockTypes();
 	}
 }
