@@ -117,7 +117,7 @@ class Block implements ArrayAccess {
 				// pass
 			}
 
-			if (false !== $result[$key] && empty($result[$key]) && isset($value['default'])) {
+			if (isset($result[$key]) && false !== $result[$key] && empty($result[$key]) && isset($value['default'])) {
 				$result[$key] = $value['default'];
 			}
 		}
