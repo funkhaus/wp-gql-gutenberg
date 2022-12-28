@@ -88,7 +88,11 @@ class Block implements ArrayAccess {
 					$source_node = $value['selector'] ? $node->findOne( $value['selector'] ) : $node;
 
 					if ( $source_node ) {
-						$result[ $key ] = $source_node->getAttribute( $value['attribute'] );
+						if ( $value['type'] === 'boolean' ) {
+							$result[ $key ] = $source_node->hasAttribute( $value['attribute'] );
+						} else {
+							$result[ $key ] = $source_node->getAttribute( $value['attribute'] );
+						}
 					}
 					break;
 				case 'text':
@@ -113,7 +117,12 @@ class Block implements ArrayAccess {
 					// pass
 			}
 
-			if ( empty( $result[ $key ] ) && isset( $value['default'] ) ) {
+			if (
+				isset( $result[ $key ] )
+				&& false !== $result[ $key ]
+				&& empty( $result[ $key ] )
+				&& isset( $value['default'] )
+			) {
 				$result[ $key ] = $value['default'];
 			}
 		}
@@ -209,7 +218,7 @@ class Block implements ArrayAccess {
 
 		$result = self::parse_attributes( $data, $this->blockType );
 
-		$this->attributes     = $result['attributes'];
+		$this->attributes     = apply_filters( 'ggb_attributes', $result['attributes'], $this->name );
 		$this->attributesType = $result['type'];
 
 		$this->dynamicContent = $this->render_dynamic_content( $data );

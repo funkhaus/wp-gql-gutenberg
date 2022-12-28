@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name: WP GraphQL Gutenberg
- * Plugin URI: https://github.com/pristas-peter/wp-graphql-gutenberg
+ * Plugin Name: WP GQL Gutenberg
+ * Plugin URI: https://github.com/funkhaus/wp-gql-gutenberg
  * Description: Enable blocks in WP GraphQL.
- * Author: pristas-peter
+ * Author: pristas-peter, funkhaus
  * Author URI:
  * Version: 0.4.1
  * Requires at least: 5.4
@@ -90,6 +90,7 @@ if ( ! class_exists( 'WPGraphQLGutenberg' ) ) {
 			new \WPGraphQLGutenberg\Admin\Editor();
 			new \WPGraphQLGutenberg\Admin\Settings();
 			new \WPGraphQLGutenberg\Rest\Rest();
+			new \WPGraphQLGutenberg\Blocks\Plugin();
 
 			add_action('init_graphql_request', function () {
 				new \WPGraphQLGutenberg\Schema\Schema();
@@ -103,6 +104,13 @@ if ( ! class_exists( 'WPGraphQLGutenberg' ) ) {
 
 				return $request_data;
 			});
+
+			// Init Gutenberg ACF if WPGraphQLGutenbergACF plugin is not installed and GraphQLACF installed.
+			add_action( 'acf/init', function() {
+				if ( ! class_exists( 'WPGraphQLGutenbergACF' ) && class_exists( 'WPGraphQL\ACF\Config' ) ) {
+					\WPGraphQLGutenberg\Config::instance();
+				}
+			} );
 
 			register_deactivation_hook(__FILE__, function () {
 				\WPGraphQLGutenberg\Server\Server::cleanup();
