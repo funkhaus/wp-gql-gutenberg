@@ -14,7 +14,7 @@ final class Config extends \WPGraphQL\ACF\Config {
 		 */
 		if ( false === self::can_load_plugin() ) {
 			// Show the admin notice
-			add_action( 'admin_init', array( __CLASS__, '\show_admin_notice' ) );
+			add_action( 'admin_init', array( __CLASS__, 'show_admin_notice' ) );
 
 			// Bail
 			return;
