@@ -81,6 +81,31 @@ if ( ! class_exists( 'WPGraphQLGutenberg' ) ) {
 			}
 		}
 
+		public function check_dependencies() {
+			if ( class_exists( 'Classic_Editor' ) ) {
+				if ( current_user_can( 'manage_options' ) ) {
+					add_action(
+						'admin_notices',
+						function() {
+							?>
+							<div class="error notice">
+								<p>
+									<?php
+									esc_html_e(
+										'Classic Editor is enabled and you can\'t use Gutenberg editor.
+										Please deactivate Classic Editor plugin to make WP GQL Gutenberg works properly.',
+										'wp-graphql-gutenberg'
+									);
+									?>
+								</p>
+							</div>
+							<?php
+						}
+					);
+				}
+			}
+		}
+
 		public function init() {
 			$this->setup_constants();
 			$this->setup_autoload();
@@ -91,6 +116,8 @@ if ( ! class_exists( 'WPGraphQLGutenberg' ) ) {
 			new \WPGraphQLGutenberg\Admin\Settings();
 			new \WPGraphQLGutenberg\Rest\Rest();
 			new \WPGraphQLGutenberg\Blocks\Plugin();
+
+			add_action('admin_init', [$this, 'check_dependencies']);
 
 			add_action('init_graphql_request', function () {
 				new \WPGraphQLGutenberg\Schema\Schema();
