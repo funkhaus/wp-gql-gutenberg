@@ -147,6 +147,10 @@ class Block implements ArrayAccess {
 			];
 		}
 
+		if ( 'core/gallery' === $data['blockName'] && ! isset( $attributes['columns'] ) ) {
+			$attributes['columns'] = min( count( $data['innerBlocks'] ), 3 );
+		}
+
 		$types = [ $block_type['attributes'] ];
 
 		foreach ( $block_type['deprecated'] ?? [] as $deprecated ) {
