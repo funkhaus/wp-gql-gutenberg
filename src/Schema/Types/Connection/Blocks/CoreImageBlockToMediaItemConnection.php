@@ -15,9 +15,13 @@ class CoreImageBlockToMediaItemConnection {
 				'oneToOne'           => true,
 				'connectionTypeName' => 'CoreImageBlockToMediaItemConnection',
 				'resolve'            => function ( $source, $args, $context, $info ) {
+					if ( empty( $source ) || empty( $source->attributes['id'] ) ) {
+						return null;
+					}
+
 					$queried_attachment = get_post( $source->attributes['id'] );
 					if ( is_wp_error( $queried_attachment ) ) {
-						return false;
+						return null;
 					}
 					$graphql_post = new Post( $queried_attachment );
 					$resolver     = new PostObjectConnectionResolver(
