@@ -20,7 +20,7 @@ class CoreImageBlockToMediaItemConnection {
 					}
 
 					$queried_attachment = get_post( $source->attributes['id'] );
-					if ( is_wp_error( $queried_attachment ) ) {
+					if ( empty( $queried_attachment ) || is_wp_error( $queried_attachment ) ) {
 						return null;
 					}
 					$graphql_post = new Post( $queried_attachment );
