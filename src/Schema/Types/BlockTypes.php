@@ -46,6 +46,7 @@ class BlockTypes {
 
 		if ( isset( $attribute['type'] ) ) {
 			switch ( $attribute['type'] ) {
+				case 'rich-text':
 				case 'string':
 					$type = 'String';
 					break;
@@ -123,6 +124,7 @@ class BlockTypes {
 
 	protected static function normalize_attribute_value( $value, $type ) {
 		switch ( $type ) {
+			case 'rich-text':
 			case 'string':
 				return (string) $value;
 			case 'number':
@@ -262,6 +264,10 @@ class BlockTypes {
 			$type_names = [];
 
 			$registry = Registry::get_registry();
+
+			if ( empty( $registry ) || ! is_array( $registry ) ) {
+				return;
+			}
 
 			foreach ( $registry as $block_name => $block_type ) {
 				$type_names[] = self::register_block_type( $block_type, $type_registry );
