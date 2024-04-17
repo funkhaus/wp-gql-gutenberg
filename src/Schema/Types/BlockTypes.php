@@ -263,6 +263,10 @@ class BlockTypes {
 
 			$registry = Registry::get_registry();
 
+			if ( empty( $registry ) || ! is_array( $registry ) ) {
+				return;
+			}
+
 			foreach ( $registry as $block_name => $block_type ) {
 				$type_names[] = self::register_block_type( $block_type, $type_registry );
 			}
