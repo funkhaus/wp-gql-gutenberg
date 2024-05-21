@@ -26,7 +26,7 @@ final class Config extends \WPGraphQL\ACF\Config {
 			return;
 		}
 
-		$type_name = BlockTypes::format_block_name( $block_type['name'] );
+		$type_name = BlockTypes::format_block_name( $block_type );
 
 		foreach ( $field_groups as $field_group ) {
 			$field_name = isset( $field_group['graphql_field_name'] )
@@ -50,6 +50,25 @@ final class Config extends \WPGraphQL\ACF\Config {
 	}
 
 	public function __construct() {
+
+		add_filter(
+			'graphql_acf_get_root_id',
+			function ( $id, $root ) {
+				if ( ! empty( $root['is_block'] ) ) {
+					$id = md5( json_encode( $root['attributes'] ) );
+					acf_setup_meta(
+						$root['attributes']['data'],
+						$id,
+						false
+					);
+				}
+
+				return $id;
+			},
+			10,
+			2
+		);
+
 		add_filter(
 			'graphql_gutenberg_block_type_fields',
 			function ( $fields, $block_type, $type_registry ) {
