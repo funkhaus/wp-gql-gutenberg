@@ -164,7 +164,7 @@ class ComposerStaticInit1ae93f46350550e5030837be01a3fdf8
         'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        'WPGraphQLGutenberg\\Acf\\ACF' => __DIR__ . '/../..' . '/src/Acf/Acf.php',
+        'WPGraphQLGutenberg\\Acf\\Acf' => __DIR__ . '/../..' . '/src/Acf/Acf.php',
         'WPGraphQLGutenberg\\Acf\\Config' => __DIR__ . '/../..' . '/src/Acf/Config.php',
         'WPGraphQLGutenberg\\Admin\\Editor' => __DIR__ . '/../..' . '/src/Admin/Editor.php',
         'WPGraphQLGutenberg\\Admin\\Settings' => __DIR__ . '/../..' . '/src/Admin/Settings.php',

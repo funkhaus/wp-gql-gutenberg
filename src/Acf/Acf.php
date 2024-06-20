@@ -4,7 +4,7 @@ namespace WPGraphQLGutenberg\Acf;
 use WPGraphQLGutenberg\Blocks\Block;
 use WPGraphQLGutenberg\Schema\Types\BlockTypes;
 
-final class ACF {
+final class Acf {
 
 	public function __construct() {
 		add_action( 'acf/init', array( $this, 'init' ) );
