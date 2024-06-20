@@ -23,7 +23,18 @@ class Block implements ArrayAccess {
 				$block['blockName'] = 'core/freeform';
 			}
 
-			$result[] = new Block( $block, $post_id, $registry, $order, $parent );
+			$block_obj = new Block( $block, $post_id, $registry, $order, $parent );
+			$result[] = array_merge(
+				array(
+					'name' => $block_obj['name'],
+					'attributesType' => $block_obj['attributesType'],
+					'postId' => $block_obj['postId'],
+					'attributes' => $block_obj['attributes'],
+					'innerBlocks' => $block_obj['innerBlocks'],
+					'is_block'    => true,
+				),
+				$block
+			);
 			$order++;
 		}
 

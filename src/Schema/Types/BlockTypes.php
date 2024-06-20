@@ -7,14 +7,19 @@ use WPGraphQLGutenberg\Schema\Types\Scalar\Scalar;
 use WPGraphQLGutenberg\Schema\Utils;
 
 class BlockTypes {
-	public static function format_block_name( $block_name ) {
+	public static function format_block_name( $block_type ) {
+		$block_name = $block_type['name'];
 		$name = implode(
 			array_map(function ( $val ) {
 				return ucfirst( $val );
 			}, preg_split( '/(\/|\?|_|=|-)/', $block_name ))
 		);
-
+		
 		if ( preg_match( '/Block$/', $name ) ) {
+			return $name;
+		}
+		
+		if ( isset( $block_type['acf'] ) || substr( $block_type['name'], 0, 4 ) === 'acf/' ) {
 			return $name;
 		}
 
@@ -214,7 +219,7 @@ class BlockTypes {
 	}
 
 	protected static function register_block_type( $block_type, $type_registry ) {
-		$name = self::format_block_name( $block_type['name'] );
+		$name = self::format_block_name( $block_type );
 
 		$fields = [];
 
@@ -224,7 +229,7 @@ class BlockTypes {
 			$fields['attributes'] = [
 				'type'    => $type,
 				'resolve' => function ( $block ) {
-					return array_merge( $block->attributes, [ '__type' => $block->attributesType ] );
+					return array_merge( $block['attributes'], [ '__type' => $block['attributesType'] ] );
 				},
 			];
 		}
@@ -278,7 +283,7 @@ class BlockTypes {
 			register_graphql_union_type('BlockUnion', [
 				'typeNames'   => $type_names,
 				'resolveType' => function ( $block ) use ( $type_registry ) {
-					return self::format_block_name( $block->name );
+					return self::format_block_name( $block );
 				},
 			]);
 

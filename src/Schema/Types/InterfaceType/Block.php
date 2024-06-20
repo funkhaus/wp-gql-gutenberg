@@ -42,14 +42,14 @@ class Block {
 						],
 						'description' => __( 'Gutenberg blocks', 'wp-graphql-gutenberg' ),
 						'resolve'     => function ( $block, $args, $context, $info ) {
-							return $block->innerBlocks;
+							return $block['innerBlocks'];
 						},
 					],
 					'parentNode'           => [
 						'type'        => [ 'non_null' => 'Node' ],
 						'description' => __( 'Parent post.', 'wp-graphql-gutenberg' ),
 						'resolve'     => function ( $block, $args, $context, $info ) {
-							$id = self::get_parent_id( $block->postId );
+							$id = self::get_parent_id( $block['postId'] );
 
 							$resolver = Utils::get_post_resolver( $id );
 							return $resolver( $id, $context );
@@ -59,14 +59,14 @@ class Block {
 						'type'        => [ 'non_null' => 'Int' ],
 						'description' => __( 'Parent post id.', 'wp-graphql-gutenberg' ),
 						'resolve'     => function ( $block ) {
-							return self::get_parent_id( $block->postId );
+							return self::get_parent_id( $block['postId'] );
 						},
 					],
 					'isDynamic'            => [
 						'type'        => [ 'non_null' => 'Boolean' ],
 						'description' => __( 'Is block rendered server side.', 'wp-graphql-gutenberg' ),
 						'resolve'     => function ( $block, $args, $context, $info ) {
-							return in_array( $block->name, get_dynamic_block_names(), true );
+							return in_array( $block['blockName'], get_dynamic_block_names(), true );
 						},
 					],
 					'dynamicContent'       => [
@@ -80,12 +80,12 @@ class Block {
 						'type'        => 'String',
 						'description' => __( 'Block attributes, JSON encoded', 'wp-graphql-gutenberg' ),
 						'resolve'     => function ( $block, $args, $context, $info ) {
-							return wp_json_encode( $block->attributes );
+							return wp_json_encode( $block['attributes'] );
 						},
 					],
 				],
 				'resolveType' => function ( $block ) use ( $type_registry ) {
-					$type = $type_registry->get_type( BlockTypes::format_block_name( $block->name ) );
+					$type = $type_registry->get_type( BlockTypes::format_block_name( $block ) );
 					if ( null === $type ) {
 						return $type_registry->get_type( 'UnknownBlock' );
 					}
